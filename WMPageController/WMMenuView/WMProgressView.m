@@ -142,4 +142,23 @@
     }
 }
 
+- (void)setColor:(CGColorRef)color {
+    if (_color != color) {
+        // Release the old color
+        if (_color) {
+            CGColorRelease(_color);
+        }
+        // Retain the new color
+        _color = CGColorRetain(color);
+        [self setNeedsDisplay];
+    }
+}
+
+- (void)dealloc {
+    // Release the color when the view is deallocated
+    if (_color) {
+        CGColorRelease(_color);
+    }
+}
+
 @end
